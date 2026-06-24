@@ -1,5 +1,5 @@
 # MEDISOL — Mise en œuvre d'une infrastructure virtualisée sécurisée
-### Rapport MSPR Virtualisation — M2 Expert Cloud & Infrastructure (YNOV Bordeaux)
+### Rapport MSPR Virtualisation 
 
 ---
 
