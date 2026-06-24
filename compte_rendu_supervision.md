@@ -25,6 +25,15 @@ docker compose up -d
 | Alertmanager | Reçoit les alertes `firing` de Prometheus, les regroupe, décide de l'envoi. | 9093 | `alertmanager.yml` | volume `alertmanager_data` |
 | Postfix | Relais SMTP local : reçoit le mail d'Alertmanager et l'envoie authentifié vers Gmail. | — (interne) | variables d'env (`.env`, `ALLOWED_SENDER_DOMAINS`) | — |
 
+### Comment Prometheus surveille les machines (modèle pull)
+
+Prometheus fonctionne en **pull**, pas en push : ce n'est pas la machine surveillée qui envoie ses métriques au serveur, c'est Prometheus qui va les chercher. Concrètement, toutes les 15 secondes (`scrape_interval`), Prometheus fait une requête HTTP GET vers `http://IP_MACHINE:9273/metrics` — l'endpoint exposé en local par l'agent Telegraf. La réponse est un texte brut listant les métriques courantes (CPU, RAM, etc.).
+
+- Si la requête réussit → la métrique `up{job="..."}` vaut `1`, et les valeurs récupérées sont stockées.
+- Si elle échoue ou timeout (machine éteinte, réseau coupé, Telegraf arrêté...) → `up{job="..."}` vaut `0`.
+
+C'est ce mécanisme de scrape HTTP répété qui fait office de "heartbeat" continu — **ce n'est ni du ping ICMP, ni du SNMP**. Aucun des deux n'est configuré dans ce projet : pas d'exporter SNMP, pas de polling SNMP (port 161/162), et le réseau n'est jamais testé par un simple ping. Tout passe par cet unique endpoint HTTP/9273 exposé par Telegraf.
+
 Jobs Prometheus actuellement configurés (`prometheus.yml`) :
 - `prometheus` (`localhost:9090`)
 - `opnsense` (`192.168.60.1:9273`)
