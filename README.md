@@ -182,7 +182,7 @@ L'accès à l'interface d'administration d'OPNsense est adossé à l'Active Dire
 
 Une **VM de supervision dédiée**, isolée sur le **VLAN 60**, héberge la pile **Prometheus + Grafana + Alertmanager** :
 
-- des **agents** (exporters / Telegraf) exposent les métriques sur le port **9273**, complétés par **SNMP** et **ICMP**, scrutés par Prometheus sur l'ensemble des VLAN ;
+- des **agents** (exporters / Telegraf) exposent les métriques sur le port **9273**, scrutés par Prometheus sur l'ensemble des VLAN ;
 - **Grafana** affiche les tableaux de bord (CPU/RAM, disque, état des VM, disponibilité) ;
 - **Alertmanager** déclenche les **alertes** en cas de dépassement de seuil ou d'indisponibilité.
 
