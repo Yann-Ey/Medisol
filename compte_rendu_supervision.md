@@ -39,7 +39,7 @@ Jobs Prometheus actuellement configurés (`prometheus.yml`) :
 - `opnsense` (`192.168.60.1:9273`)
 - `SDCMEDISOL` (`192.168.15.10:9273`) — AD/DNS
 - `SFILESMEDISOL` (`192.168.15.20:9273`) — AD de secours / fichiers
-- `srv-web` (`192.168.100.100:9273`) — ⚠️ job présent dans `prometheus.yml` mais sans dashboard dédié, voir §6.
+- `srv-web` (`192.168.100.100:9273`) — Portail Client
 
 ---
 
